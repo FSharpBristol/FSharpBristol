@@ -280,7 +280,7 @@
 </ul>
 </section>
 <section >
-<h3>Significant Whitespace &amp; Line Endings</h3>
+<h3>Significant Whitespace</h3>
 <p>F#, just like Python, uses significant whitespace for indentation.</p>
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
@@ -304,6 +304,9 @@
 </code></pre></td>
 </tr>
 </table>
+</section>
+<section >
+<h3>Line Endings &amp; Semi Colons</h3>
 <p>You'll also see some of the examples use <code>;</code> and some use new lines.  The two are synonymous with each other</p>
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
@@ -312,14 +315,16 @@
 <span class="l">5: </span>
 <span class="l">6: </span>
 <span class="l">7: </span>
+<span class="l">8: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// If on one line, you need to use &quot;;&quot;</span>
-<span class="k">type</span> <span class="i">Person</span> <span class="o">=</span> {<span class="i">firstName</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs1', 29)" onmouseover="showTip(event, 'fs1', 29)" class="i">string</span>; <span class="i">lastName</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs1', 30)" onmouseover="showTip(event, 'fs1', 30)" class="i">string</span>}
+<span class="k">type</span> <span class="i">Person</span> <span class="o">=</span> {<span class="i">firstName</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs1', 29)" onmouseover="showTip(event, 'fs1', 29)" class="i">string</span>; <span class="i">lastName</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs1', 30)" onmouseover="showTip(event, 'fs1', 30)" class="i">string</span>; <span class="i">age</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs3', 31)" onmouseover="showTip(event, 'fs3', 31)" class="i">int</span>}
 
 <span class="c">// But on multiple lines, the new line acts as the terminator</span>
 <span class="k">type</span> <span class="i">Person</span> <span class="o">=</span> {
-    <span class="i">firstName</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs1', 31)" onmouseover="showTip(event, 'fs1', 31)" class="i">string</span>
-    <span class="i">lastName</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs1', 32)" onmouseover="showTip(event, 'fs1', 32)" class="i">string</span>}
+    <span class="i">firstName</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs1', 32)" onmouseover="showTip(event, 'fs1', 32)" class="i">string</span>
+    <span class="i">lastName</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs1', 33)" onmouseover="showTip(event, 'fs1', 33)" class="i">string</span>
+    <span class="i">age</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs3', 34)" onmouseover="showTip(event, 'fs3', 34)" class="i">int</span>}
 </code></pre></td>
 </tr>
 </table>
@@ -376,9 +381,9 @@
 <span class="l">4: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">type</span> <span class="i">Shape</span> <span class="o">=</span>
-    | <span class="i">Circle</span> <span class="k">of</span> <span onmouseout="hideTip(event, 'fs3', 33)" onmouseover="showTip(event, 'fs3', 33)" class="i">int</span> 
-    | <span class="i">Rectangle</span> <span class="k">of</span> <span onmouseout="hideTip(event, 'fs3', 34)" onmouseover="showTip(event, 'fs3', 34)" class="i">int</span> <span class="o">*</span> <span onmouseout="hideTip(event, 'fs3', 35)" onmouseover="showTip(event, 'fs3', 35)" class="i">int</span>
-    | <span class="i">Point</span> <span class="k">of</span> <span onmouseout="hideTip(event, 'fs3', 36)" onmouseover="showTip(event, 'fs3', 36)" class="i">int</span> <span class="o">*</span> <span onmouseout="hideTip(event, 'fs3', 37)" onmouseover="showTip(event, 'fs3', 37)" class="i">int</span>
+    | <span class="i">Circle</span> <span class="k">of</span> <span onmouseout="hideTip(event, 'fs3', 35)" onmouseover="showTip(event, 'fs3', 35)" class="i">int</span> 
+    | <span class="i">Rectangle</span> <span class="k">of</span> <span onmouseout="hideTip(event, 'fs3', 36)" onmouseover="showTip(event, 'fs3', 36)" class="i">int</span> <span class="o">*</span> <span onmouseout="hideTip(event, 'fs3', 37)" onmouseover="showTip(event, 'fs3', 37)" class="i">int</span>
+    | <span class="i">Point</span> <span class="k">of</span> <span onmouseout="hideTip(event, 'fs3', 38)" onmouseover="showTip(event, 'fs3', 38)" class="i">int</span> <span class="o">*</span> <span onmouseout="hideTip(event, 'fs3', 39)" onmouseover="showTip(event, 'fs3', 39)" class="i">int</span>
 </code></pre></td>
 </tr>
 </table>
@@ -403,7 +408,7 @@
 <p>Here note as well we aren't saying return explicitly; instead F# always returns the last value in the function.</p>
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
-<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span class="i">add</span> (<span class="i">x</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs3', 38)" onmouseover="showTip(event, 'fs3', 38)" class="i">int</span>) (<span class="i">y</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs3', 39)" onmouseover="showTip(event, 'fs3', 39)" class="i">int</span>)<span class="o">:</span> <span onmouseout="hideTip(event, 'fs3', 40)" onmouseover="showTip(event, 'fs3', 40)" class="i">int</span> <span class="o">=</span> <span class="i">x</span> <span class="o">+</span> <span class="i">y</span>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span class="i">add</span> (<span class="i">x</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs3', 40)" onmouseover="showTip(event, 'fs3', 40)" class="i">int</span>) (<span class="i">y</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs3', 41)" onmouseover="showTip(event, 'fs3', 41)" class="i">int</span>)<span class="o">:</span> <span onmouseout="hideTip(event, 'fs3', 42)" onmouseover="showTip(event, 'fs3', 42)" class="i">int</span> <span class="o">=</span> <span class="i">x</span> <span class="o">+</span> <span class="i">y</span>
 </code></pre></td>
 </tr>
 </table>
@@ -419,10 +424,10 @@
 <span class="l">5: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">match</span> <span class="i">command</span> <span class="k">with</span>
-    | <span class="i">Move</span> <span class="i">distance</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs13', 41)" onmouseover="showTip(event, 'fs13', 41)" class="i">printfn</span> <span class="s">&quot;move %f&quot;</span> <span class="i">distance</span>
-    | <span class="i">Turn</span>(<span class="i">direction</span>, <span class="i">degrees</span>) <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs13', 42)" onmouseover="showTip(event, 'fs13', 42)" class="i">printfn</span> <span class="s">&quot;turn %A %f&quot;</span> <span class="i">direction</span> <span class="i">degrees</span>
-    | <span class="i">SetPen</span> <span class="i">state</span> <span class="k">-&gt;</span>  <span onmouseout="hideTip(event, 'fs13', 43)" onmouseover="showTip(event, 'fs13', 43)" class="i">printfn</span> <span class="s">&quot;set pen to %A&quot;</span> <span class="i">state</span>
-    | <span class="i">SetColour</span> <span class="i">colour</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs13', 44)" onmouseover="showTip(event, 'fs13', 44)" class="i">printfn</span> <span class="s">&quot;set colour to %A&quot;</span> <span class="i">colour</span>
+    | <span class="i">Move</span> <span class="i">distance</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs13', 43)" onmouseover="showTip(event, 'fs13', 43)" class="i">printfn</span> <span class="s">&quot;move %f&quot;</span> <span class="i">distance</span>
+    | <span class="i">Turn</span>(<span class="i">direction</span>, <span class="i">degrees</span>) <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs13', 44)" onmouseover="showTip(event, 'fs13', 44)" class="i">printfn</span> <span class="s">&quot;turn %A %f&quot;</span> <span class="i">direction</span> <span class="i">degrees</span>
+    | <span class="i">SetPen</span> <span class="i">state</span> <span class="k">-&gt;</span>  <span onmouseout="hideTip(event, 'fs13', 45)" onmouseover="showTip(event, 'fs13', 45)" class="i">printfn</span> <span class="s">&quot;set pen to %A&quot;</span> <span class="i">state</span>
+    | <span class="i">SetColour</span> <span class="i">colour</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs13', 46)" onmouseover="showTip(event, 'fs13', 46)" class="i">printfn</span> <span class="s">&quot;set colour to %A&quot;</span> <span class="i">colour</span>
 </code></pre></td>
 </tr>
 </table>
@@ -522,7 +527,7 @@
 <span class="l">2: </span>
 <span class="l">3: </span>
 </pre></td>
-<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs17', 45)" onmouseover="showTip(event, 'fs17', 45)" class="i">List</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs18', 46)" onmouseover="showTip(event, 'fs18', 46)" class="i">fold</span> (<span class="k">fun</span> <span class="i">agg</span> <span class="i">command</span> <span class="k">-&gt;</span> <span class="i">processCommand</span> <span class="i">agg</span> <span class="i">command</span>) 
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs17', 47)" onmouseover="showTip(event, 'fs17', 47)" class="i">List</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs18', 48)" onmouseover="showTip(event, 'fs18', 48)" class="i">fold</span> (<span class="k">fun</span> <span class="i">agg</span> <span class="i">command</span> <span class="k">-&gt;</span> <span class="i">processCommand</span> <span class="i">agg</span> <span class="i">command</span>) 
           <span class="i">turtle</span> 
           <span class="i">commands</span>
 </code></pre></td>
@@ -540,7 +545,7 @@
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span class="i">movedTurtle</span> <span class="o">=</span> 
     <span class="i">commands</span> 
-    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs17', 47)" onmouseover="showTip(event, 'fs17', 47)" class="i">List</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs18', 48)" onmouseover="showTip(event, 'fs18', 48)" class="i">fold</span> (<span class="k">fun</span> <span class="i">agg</span> <span class="i">command</span> <span class="k">-&gt;</span> <span class="i">processCommand</span> <span class="i">agg</span> <span class="i">command</span>) <span class="i">turtle</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs17', 49)" onmouseover="showTip(event, 'fs17', 49)" class="i">List</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs18', 50)" onmouseover="showTip(event, 'fs18', 50)" class="i">fold</span> (<span class="k">fun</span> <span class="i">agg</span> <span class="i">command</span> <span class="k">-&gt;</span> <span class="i">processCommand</span> <span class="i">agg</span> <span class="i">command</span>) <span class="i">turtle</span>
 </code></pre></td>
 </tr>
 </table>
