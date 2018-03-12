@@ -240,6 +240,7 @@
 </code></pre></td>
 </tr>
 </table>
+<p>Now when we launch it, we should get a nice background</p>
 </section>
 </section>
 <section >
@@ -394,46 +395,44 @@
 <span class="l">10: </span>
 <span class="l">11: </span>
 <span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span class="i">Move</span> (<span class="i">gameTime</span><span class="o">:</span> <span class="i">GameTime</span>)
          (<span class="i">sprite</span><span class="o">:</span> <span onmouseout="hideTip(event, 'fs15', 38)" onmouseover="showTip(event, 'fs15', 38)" class="i">Sprite</span>) 
          (<span class="i">kstate</span><span class="o">:</span> <span class="i">KeyboardState</span>)<span class="o">:</span> <span onmouseout="hideTip(event, 'fs15', 39)" onmouseover="showTip(event, 'fs15', 39)" class="i">Sprite</span> <span class="o">=</span>
-    <span class="i">possibleMoves</span>
-    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs21', 40)" onmouseover="showTip(event, 'fs21', 40)" class="i">List</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs22', 41)" onmouseover="showTip(event, 'fs22', 41)" class="i">fold</span>(<span class="k">fun</span> (<span class="i">position</span><span class="o">:</span> <span class="i">Vector2</span>) (<span class="i">key</span>, <span class="i">adjustment</span>, <span class="i">dimension</span>) <span class="k">-&gt;</span> 
-        <span class="c">// Starting with our current position</span>
-        <span class="c">// Take every possible move and apply it to our position</span>
-        <span class="c">// -- Actual logic in next slide -- </span>
-        <span class="i">position</span>  
-    ) <span class="i">sprite</span><span class="o">.</span><span class="i">position</span>
-    <span class="c">// Apply the updated position to the sprite</span>
-    <span class="o">|&gt;</span> <span class="k">fun</span> <span class="i">updatedPosition</span> <span class="k">-&gt;</span> { <span class="i">sprite</span> <span class="k">with</span> <span class="i">position</span><span class="o">=</span><span class="i">updatedPosition</span> }
+    <span class="k">let</span> <span class="i">elapsedTime</span> <span class="o">=</span> (<span class="i">gameTime</span><span class="o">.</span><span class="i">ElapsedGameTime</span><span class="o">.</span><span class="i">TotalSeconds</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs19', 40)" onmouseover="showTip(event, 'fs19', 40)" class="i">float32</span>)
+
+    <span class="k">let</span> <span class="i">AdjustPosition</span> (<span class="i">position</span><span class="o">:</span> <span class="i">Vector2</span>) (<span class="i">key</span>, <span class="i">adjustment</span>, <span class="i">dimension</span>) <span class="o">=</span>
+        <span class="k">if</span> <span class="i">kstate</span><span class="o">.</span><span class="i">IsKeyDown</span>(<span class="i">key</span>) 
+        <span class="k">then</span>
+            <span class="k">let</span> <span class="i">amountMoved</span> <span class="o">=</span> <span class="i">sprite</span><span class="o">.</span><span class="i">speed</span> <span class="o">*</span> <span class="i">elapsedTime</span>
+            <span class="k">match</span> (<span class="i">adjustment</span>, <span class="i">dimension</span>) <span class="k">with</span>
+            | (<span class="i">Add</span>, <span class="i">Y</span>) <span class="k">-&gt;</span> <span class="i">Vector2</span>(<span class="i">position</span><span class="o">.</span><span class="i">X</span>, <span class="i">position</span><span class="o">.</span><span class="i">Y</span> <span class="o">+</span> <span class="i">amountMoved</span> )
+            | (<span class="i">Subtract</span>, <span class="i">Y</span>) <span class="k">-&gt;</span> <span class="i">Vector2</span>(<span class="i">position</span><span class="o">.</span><span class="i">X</span>, <span class="i">position</span><span class="o">.</span><span class="i">Y</span> <span class="o">-</span> <span class="i">amountMoved</span> )
+            | (<span class="i">Add</span>, <span class="i">X</span>) <span class="k">-&gt;</span> <span class="i">Vector2</span>(<span class="i">position</span><span class="o">.</span><span class="i">X</span> <span class="o">+</span> <span class="i">amountMoved</span>, <span class="i">position</span><span class="o">.</span><span class="i">Y</span>)
+            | (<span class="i">Subtract</span>, <span class="i">X</span>) <span class="k">-&gt;</span> <span class="i">Vector2</span>(<span class="i">position</span><span class="o">.</span><span class="i">X</span> <span class="o">-</span> <span class="i">amountMoved</span>, <span class="i">position</span><span class="o">.</span><span class="i">Y</span>)
+        <span class="k">else</span> <span class="i">position</span>
 </code></pre></td>
 </tr>
 </table>
 </section>
 <section >
-<p>Our fold function is:</p>
-<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
-<span class="l"> 2: </span>
-<span class="l"> 3: </span>
-<span class="l"> 4: </span>
-<span class="l"> 5: </span>
-<span class="l"> 6: </span>
-<span class="l"> 7: </span>
-<span class="l"> 8: </span>
-<span class="l"> 9: </span>
-<span class="l">10: </span>
+<p><code>AdjustPosition</code> can then be applied to each possible move in the <code>Move</code> function.</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
 </pre></td>
-<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp">        <span class="k">if</span> <span class="i">kstate</span><span class="o">.</span><span class="i">IsKeyDown</span>(<span class="i">key</span>) 
-        <span class="k">then</span> 
-             <span class="k">let</span> <span class="i">elapsedTime</span> <span class="o">=</span> (<span class="i">gameTime</span><span class="o">.</span><span class="i">ElapsedGameTime</span><span class="o">.</span><span class="i">TotalSeconds</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs19', 42)" onmouseover="showTip(event, 'fs19', 42)" class="i">float32</span>)
-             <span class="k">let</span> <span class="i">amountMoved</span> <span class="o">=</span> <span class="i">sprite</span><span class="o">.</span><span class="i">speed</span> <span class="o">*</span> <span class="i">elapsedTime</span>
-             <span class="k">match</span> (<span class="i">adjustment</span>, <span class="i">dimension</span>) <span class="k">with</span>
-             | (<span class="i">Add</span>, <span class="i">Y</span>) <span class="k">-&gt;</span> <span class="i">Vector2</span>(<span class="i">position</span><span class="o">.</span><span class="i">X</span>, <span class="i">position</span><span class="o">.</span><span class="i">Y</span> <span class="o">+</span> <span class="i">amountMoved</span> )
-             | (<span class="i">Subtract</span>, <span class="i">Y</span>) <span class="k">-&gt;</span> <span class="i">Vector2</span>(<span class="i">position</span><span class="o">.</span><span class="i">X</span>, <span class="i">position</span><span class="o">.</span><span class="i">Y</span> <span class="o">-</span> <span class="i">amountMoved</span> )
-             | (<span class="i">Add</span>, <span class="i">X</span>) <span class="k">-&gt;</span> <span class="i">Vector2</span>(<span class="i">position</span><span class="o">.</span><span class="i">X</span> <span class="o">+</span> <span class="i">amountMoved</span>, <span class="i">position</span><span class="o">.</span><span class="i">Y</span>)
-             | (<span class="i">Subtract</span>, <span class="i">X</span>) <span class="k">-&gt;</span> <span class="i">Vector2</span>(<span class="i">position</span><span class="o">.</span><span class="i">X</span> <span class="o">-</span> <span class="i">amountMoved</span>, <span class="i">position</span><span class="o">.</span><span class="i">Y</span>)
-        <span class="k">else</span> <span class="i">position</span>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp">    <span class="c">// Starting with our current position</span>
+    <span class="c">// Take every possible move and apply it to our position</span>
+    <span class="k">let</span> <span class="i">updatedPosition</span> <span class="o">=</span> <span class="i">possibleMoves</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs21', 41)" onmouseover="showTip(event, 'fs21', 41)" class="i">List</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs22', 42)" onmouseover="showTip(event, 'fs22', 42)" class="i">fold</span> <span class="i">AdjustPosition</span> <span class="i">sprite</span><span class="o">.</span><span class="i">position</span>
+
+    <span class="c">// Apply the updated position to the sprite</span>
+    { <span class="i">sprite</span> <span class="k">with</span> <span class="i">position</span><span class="o">=</span><span class="i">updatedPosition</span> }
 </code></pre></td>
 </tr>
 </table>
@@ -442,7 +441,7 @@
 <p>Change the <code>Update</code> function so logo is set as:</p>
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
-<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs14', 43)" onmouseover="showTip(event, 'fs14', 43)" class="i">_logo</span> <span class="o">&lt;-</span> <span class="i">Move</span> <span class="i">gameTime</span> <span onmouseout="hideTip(event, 'fs14', 44)" onmouseover="showTip(event, 'fs14', 44)" class="i">_logo</span> (<span class="i">Keyboard</span><span class="o">.</span><span class="i">GetState</span>())
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs14', 43)" onmouseover="showTip(event, 'fs14', 43)" class="i">_logo</span> <span class="o">&lt;-</span> (<span class="i">Move</span> <span class="i">gameTime</span> <span onmouseout="hideTip(event, 'fs14', 44)" onmouseover="showTip(event, 'fs14', 44)" class="i">_logo</span> (<span class="i">Keyboard</span><span class="o">.</span><span class="i">GetState</span>()))
 </code></pre></td>
 </tr>
 </table>
@@ -499,8 +498,19 @@
 <section >
 <p>In the <code>Move</code> function add this last pipe forward operator:</p>
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
 </pre></td>
-<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="o">|&gt;</span> <span class="i">StopAtBorders</span> <span class="i">graphics</span>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp">{ <span class="i">sprite</span> <span class="k">with</span> <span class="i">position</span><span class="o">=</span><span class="i">updatedPosition</span> }
+<span class="o">|&gt;</span> <span class="i">StopAtBorders</span> <span class="i">graphics</span>
+</code></pre></td>
+</tr>
+</table>
+</section>
+<section >
+<p>Finally, modify the <code>Update</code> method to pass in the new parameter:</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs14', 51)" onmouseover="showTip(event, 'fs14', 51)" class="i">_logo</span> <span class="o">&lt;-</span> (<span class="i">Move</span> <span class="i">gameTime</span> <span onmouseout="hideTip(event, 'fs14', 52)" onmouseover="showTip(event, 'fs14', 52)" class="i">_logo</span> (<span class="i">Keyboard</span><span class="o">.</span><span class="i">GetState</span>()) <span class="i">_graphics</span>)
 </code></pre></td>
 </tr>
 </table>
